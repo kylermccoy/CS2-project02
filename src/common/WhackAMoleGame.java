@@ -10,26 +10,30 @@ public class WhackAMoleGame implements Runnable {
     private int column ;
     private int game_time ;
     private WhackAMole game ;
+    private boolean active ;
 
     public WhackAMoleGame(ArrayList players, int row, int column, int game_time){
         this.players = players ;
         this.row = row ;
         this.column = column ;
         this.game_time = game_time ;
-        game = new WhackAMole() ;
+        game = new WhackAMole(row, column) ;
+    }
+
+    public boolean isActive(){
+        return active ;
     }
 
     @Override
     public void run(){
-        while(game_time > 0){
-            try {
-                sleep(1000);
-                game_time--;
-            }
-            catch(InterruptedException e){
-                System.out.println("Sleep failed!");
-            }
+        active = true ;
+        try{
+            sleep(game_time * 1000) ;
         }
+        catch(InterruptedException ex){
+            System.out.println("Interrupted Exception!");
+        }
+        active = false ;
         for(WhackAMolePlayer player: players){
             player.close();
         }

@@ -1,17 +1,50 @@
 package common;
 
-public class WhackAMoleBoard {
-    public int rows;
-    public int cols;
-    private Status status;
+import client.gui.Observer;
 
-    public enum Status {
-        I_WON, I_LOST, TIE, ERROR, NOT_OVER;
+import java.util.LinkedList;
+import java.util.List;
+
+public class WhackAMoleBoard {
+    private int rows;
+    private int cols;
+
+    private List<Observer<WhackAMoleBoard>> observers ;
+
+    public WhackAMoleBoard(int rows, int columns){
+        this.observers = new LinkedList<>() ;
+        this.rows = rows ;
+        this.cols = columns ;
     }
 
-    public WhackAMoleBoard(int rows, int cols){
-        this.cols = cols;
-        this.rows = rows;
+    public void addObserver(Observer<WhackAMoleBoard> observer){
+        this.observers.add(observer) ;
+    }
+
+    public void alertObservers(){
+        for(Observer<WhackAMoleBoard> obs: this.observers){
+            obs.update(this) ;
+        }
+    }
+
+    public void close(){
+        alertObservers();
+    }
+
+    public void setRandC(int rows, int cols){
+        this.rows = rows ;
+        this.cols = cols ;
+    }
+
+    public void moleUp(int mole_number){
+
+    }
+
+    public void moleDown(int mole_number){
+
+    }
+
+    public void whack(int mole_number, int player_number){
 
     }
 

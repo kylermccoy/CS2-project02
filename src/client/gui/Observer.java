@@ -1,4 +1,5 @@
 package client.gui;
 
-public class Observer {
+public interface Observer < Subject > {
+    void update(Subject subject) ;
 }

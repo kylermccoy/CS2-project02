@@ -52,7 +52,7 @@ public class WAMServer implements Runnable {
             while(num_players > 0){
                 Socket playerSocket = server.accept() ;
                 WhackAMolePlayer player = new WhackAMolePlayer(playerSocket, i) ;
-                player.connect(rows,columns, num_players, i) ;
+                player.connect(rows, columns, num_players, i) ;
                 System.out.println("Player #" + i + " connected.") ;
                 i++ ;
                 num_players-- ;
