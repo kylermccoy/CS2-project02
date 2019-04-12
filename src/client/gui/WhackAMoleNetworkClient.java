@@ -32,7 +32,5 @@ public class WhackAMoleNetworkClient {
 
     private synchronized void stop(){this.loopcontrol = false;}
 
-    //will fix when the board is created
-    private void makeMove(){this.board.makeMove();}
 
 }
