@@ -9,7 +9,7 @@ public class WhackAMoleBoard {
         I_WON, I_LOST, TIE, ERROR, NOT_OVER;
     }
 
-    public WhackAMoleBoard(int cols, int rows){
+    public WhackAMoleBoard(int rows, int cols){
         this.cols = cols;
         this.rows = rows;
 
