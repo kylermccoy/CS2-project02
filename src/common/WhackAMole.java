@@ -31,21 +31,20 @@ public class WhackAMole {
         return active ;
     }
 
-    public void startTimer(int game_time){
+    public void startGame(int game_time){
         try{
             active = true ;
+            System.out.println("Starting mole threads!");
+            for(Moles mole: moles){
+                mole.start();
+            }
+            System.out.println("Starting timer!");
             sleep(game_time * 1000) ;
             active = false ;
+            System.out.println("Timer finished!");
         }
         catch(InterruptedException ex){
             System.out.println("Interrupted Exception!");
-        }
-    }
-
-    public void startGame(int game_time){
-        startTimer(game_time);
-        for(Moles mole: moles){
-            mole.start();
         }
     }
 }

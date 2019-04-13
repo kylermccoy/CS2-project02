@@ -60,6 +60,7 @@ public class WhackAMoleGame implements Runnable {
                 }
             }
         }
+        System.out.println("Calculating scores!");
         int number_of_best = 1 ;
         int best_score = player_scores.get(0);
         for(int score: player_scores){
@@ -70,6 +71,7 @@ public class WhackAMoleGame implements Runnable {
                 number_of_best++ ;
             }
         }
+        System.out.println("Sending winning messages!");
         if(number_of_best == 1) {
             int index_best = player_scores.indexOf(best_score);
             for(WhackAMolePlayer player: players){
@@ -88,8 +90,10 @@ public class WhackAMoleGame implements Runnable {
                 }
             }
         }
+        System.out.println("Closing clients!");
         for(WhackAMolePlayer player: players){
             player.close();
         }
+        System.exit(0);
     }
 }
