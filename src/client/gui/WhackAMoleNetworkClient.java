@@ -152,8 +152,6 @@ public class WhackAMoleNetworkClient {
                 }
             }
             catch (NoSuchElementException e){
-                System.out.println("Lost connection to server!");
-                this.stop();
             }
         }
     }
