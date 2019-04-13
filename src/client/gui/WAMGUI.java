@@ -90,6 +90,10 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
         client.startListener();
     }
 
+    public ArrayList<Button> getButtons(){
+        return this.buttons;
+    }
+
     @Override
     public void stop(){
         this.board.close() ;
