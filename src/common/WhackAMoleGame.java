@@ -31,6 +31,10 @@ public class WhackAMoleGame implements Runnable {
         return game.isValid(mole_num) ;
     }
 
+    public void setWhacked(int mole_num, boolean bool){
+        game.setWhacked(mole_num, bool);
+    }
+
     public boolean isActive(){
         return active ;
     }

@@ -6,6 +6,7 @@ public class Moles extends Thread {
 
     private int number ;
     private boolean isUp ;
+    private boolean gotwhacked ;
 
     private WhackAMoleGame game ;
 
@@ -13,10 +14,19 @@ public class Moles extends Thread {
         this.number = number ;
         this.game = game ;
         this.isUp = false ;
+        this.gotwhacked = false ;
     }
 
     public boolean isUp(){
         return isUp ;
+    }
+
+    public boolean gotWhacked(){
+        return gotwhacked ;
+    }
+
+    public void setWhacked(boolean bool){
+        gotwhacked = bool ;
     }
 
     public int getNumber(){
@@ -42,6 +52,7 @@ public class Moles extends Thread {
                 downtime = rand.nextInt(8) + 2;
                 this.isUp = false;
                 this.game.moleDown(number);
+                setWhacked(false);
                 try {
                     sleep(downtime * 1000);
                 } catch (InterruptedException e) {

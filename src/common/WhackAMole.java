@@ -20,8 +20,12 @@ public class WhackAMole {
         }
     }
 
+    public void setWhacked(int mole_num, boolean bool){
+        moles.get(mole_num).setWhacked(bool);
+    }
+
     public boolean isValid(int mole_num){
-        return moles.get(mole_num).isUp() ;
+        return moles.get(mole_num).isUp() && !moles.get(mole_num).gotWhacked() ;
     }
 
     public void startGame(){
