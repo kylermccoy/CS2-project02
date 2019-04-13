@@ -95,9 +95,6 @@ public class WhackAMoleNetworkClient {
                     case WAMProtocol.WHACK:
                         this.board.whack(Integer.parseInt(tokens[1]),Integer.parseInt(tokens[2])) ;
                         break ;
-                    case WAMProtocol.SCORE:
-                        //do some shit
-                        break ;
                 }
             }
             catch (NoSuchElementException e){
