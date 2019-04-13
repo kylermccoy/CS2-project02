@@ -30,15 +30,21 @@ public class WhackAMoleGame implements Runnable {
     }
 
     public void moleUp(int mole_num){
+        System.out.println("Mole Up at " + mole_num);
         for(WhackAMolePlayer player: players){
             player.moleUp(mole_num);
         }
     }
 
     public void moleDown(int mole_num){
+        System.out.println("Mole Down at " + mole_num);
         for(WhackAMolePlayer player: players){
             player.moleDown(mole_num);
         }
+    }
+
+    public int getTime(){
+        return game_time ;
     }
 
     public String getScore(){
@@ -51,6 +57,6 @@ public class WhackAMoleGame implements Runnable {
 
     public void run(){
         System.out.println("Game starting!");
-        game.startGame(game_time) ;
+        game.startGame() ;
     }
 }
