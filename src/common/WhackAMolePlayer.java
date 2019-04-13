@@ -17,8 +17,10 @@ public class WhackAMolePlayer implements Closeable {
     private PrintStream printStream ;
 
     private int player_number ;
+    private int score ;
 
     public WhackAMolePlayer(Socket socket, int player_num) {
+        score = 0 ;
         this.socket = socket ;
         this.player_number = player_num ;
         try {
@@ -30,8 +32,24 @@ public class WhackAMolePlayer implements Closeable {
         }
     }
 
+    public int getScore(){
+        return this.score ;
+    }
+
+    public void addPoints(){
+        this.score += 2 ;
+    }
+
+    public void subPoints(){
+        this.score-- ;
+    }
+
     public void connect(int row, int column, int num_players, int player_num){
         printStream.println(WELCOME + " " + row + " " + column + " " + num_players + " " + player_num);
+    }
+
+    public String getResponse(){
+        return scanner.nextLine() ;
     }
 
     public void moleUp(int mole_num){

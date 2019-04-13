@@ -1,6 +1,6 @@
 package server;
 
-import common.WhackAMoleBoard;
+
 import common.WhackAMoleGame;
 import common.WhackAMolePlayer;
 
@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.List;
 
 public class WAMServer implements Runnable {
     private ServerSocket server ;
