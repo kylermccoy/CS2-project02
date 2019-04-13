@@ -37,10 +37,6 @@ public class WhackAMoleBoard {
         return rows ;
     }
 
-    public void addObserver(Observer<WhackAMoleBoard> observer){
-        this.observers.add(observer) ;
-    }
-
     public void alertObservers(){
         for(Observer<WhackAMoleBoard> obs: this.observers){
             obs.update(this) ;
