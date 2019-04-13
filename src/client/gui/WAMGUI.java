@@ -138,6 +138,7 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
             }
         }
 
+        int x = 0;
         int index = 0;
         for(int i = 0; i < num_players; i++) {
             index++;
