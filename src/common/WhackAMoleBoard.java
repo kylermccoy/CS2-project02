@@ -38,7 +38,7 @@ public class WhackAMoleBoard {
     }
 
     public void addObserver(Observer<WhackAMoleBoard> observer){
-        this.observers.add(observer) ;
+        this.observers.add(observer);
     }
 
     public void alertObservers(){
