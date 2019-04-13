@@ -79,7 +79,7 @@ public class WhackAMoleGame implements Runnable {
         active = false ;
         System.out.println("Ending game!");
         System.out.println("Sending game messages!");
-        int tied_check = 1 ;
+        int tied_check = 0 ;
         int best_score = players.get(0).getScore() ;
         for(WhackAMolePlayer player: players){
             if(best_score < player.getScore()){
