@@ -58,5 +58,6 @@ public class WhackAMoleGame implements Runnable {
     public void run(){
         System.out.println("Game starting!");
         game.startGame() ;
+        System.out.println("Game ending!");
     }
 }
