@@ -17,6 +17,13 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * JavaFX GUI for the networked Whack a mole game
+ *
+ * @Author: Alex Cooley
+ * @Author: Kyle McCoy
+ */
+
 public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
 
     private WhackAMoleBoard board ;
@@ -30,6 +37,9 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
     private int num_players;
     private String scores;
 
+    /**
+     * Creates a new network client, and game board for the game. Also adds an observer
+     */
     @Override
     public void init(){
         try{
@@ -51,6 +61,12 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
         }
     }
 
+    /**
+     * Constructs the layout for the game, with a client given number of rows and columns. Each space
+     * for the mole is a button.
+     *
+     * @param stage The window that the GUI is rendered in
+     */
     public void start(Stage stage) {
         buttons = new ArrayList<>() ;
         GridPane gridPane = new GridPane() ;
@@ -95,16 +111,19 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
         client.startListener();
     }
 
-    public ArrayList<Button> getButtons(){
-        return this.buttons;
-    }
-
+    /**
+     * GUI is closing, so the network connection and the board is closed.
+     */
     @Override
     public void stop(){
         this.board.close() ;
         this.client.close() ;
     }
 
+    /**
+     * Updates the GUI including checking to see if the moles are up and down, updates the scores
+     * and checks to see if the client won, lost or tied in order to update the status label correctly
+     */
     private void refresh(){
         status = board.getStatus();
         int[] moleCheck = this.board.getMolecheck();
@@ -127,6 +146,7 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
         player_scores.setText(scores);
 
         switch(status){
+
             case TIE:
                 this.player_status.setText("The Game has Tied!");
                 break;
@@ -140,6 +160,10 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
 
     }
 
+    /**
+     * Called by the model, whenever there is a state change that needs to be updated by the GUI
+     * @param board: whack a mole board
+     */
     @Override
     public void update(WhackAMoleBoard board){
         if(Platform.isFxApplicationThread()){
@@ -149,6 +173,11 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
         }
     }
 
+    /**
+     * Main method that expects the host and the port
+     *
+     * @param args: command line arguments
+     */
     public static void main(String[] args){
         if(args.length != 2){
             System.out.println("Usage: java WAMGUI host port") ;

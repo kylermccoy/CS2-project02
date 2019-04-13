@@ -9,6 +9,10 @@ import java.net.Socket;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * The client side of the Whack a mole game. Each player gets its own connection to the server.
+ */
+
 public class WhackAMoleNetworkClient {
 
     private Socket clientSocket ;
@@ -23,6 +27,13 @@ public class WhackAMoleNetworkClient {
     private int total_players ;
     private int player_num ;
 
+    /**
+     * Hook the client up with the Whack a mole server only if it is running and waiting for
+     * players to connect. Only works if the first message that comes from the server is WELCOME
+     *
+     * @param host the name of the host running the server program
+     * @param port the port of the server socket on which the server is listening
+     */
     public WhackAMoleNetworkClient(String host, int port){
         try{
             this.clientSocket = new Socket(host, port) ;
@@ -47,26 +58,46 @@ public class WhackAMoleNetworkClient {
         }
     }
 
+    /**
+     * Returns the board of Whack a mole
+     * @return
+     */
     public WhackAMoleBoard getBoard(){
         return this.board ;
     }
 
+    /**
+     * Returns the number of players
+     */
     public int getTotal_players(){
         return total_players ;
     }
 
-    public boolean goodToGo(){
+    /**
+     * Checks to see if the main loop is good to continue or not
+     * @return
+     */
+    public synchronized boolean goodToGo(){
         return this.go ;
     }
 
+    /**
+     * Called from the GUI when it is ready to start receiving messages from the server
+     */
     public void startListener(){
         new Thread(() ->this.run()).start();
     }
 
+    /**
+     * stops the loop
+     */
     public void stop(){
         this.go = false ;
     }
 
+    /**
+     * Closes the client connection
+     */
     public void close(){
         try{
             this.clientSocket.close();
@@ -77,11 +108,18 @@ public class WhackAMoleNetworkClient {
         this.board.close();
     }
 
+    /**
+     * Sends which player hit the mole
+     * @param id
+     */
     public void sendWhack(int id){
         this.printStream.println(WAMProtocol.WHACK + " " + id + " " + this.player_num);
     }
 
-    public void run(){
+    /**
+     * Runs the main client loop.
+     */
+    private void run(){
         while(this.goodToGo()){
             try{
                 String response = scanner.nextLine() ;
