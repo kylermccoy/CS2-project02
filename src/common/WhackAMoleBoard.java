@@ -13,6 +13,7 @@ public class WhackAMoleBoard {
     private int cols;
     private Status status;
     private int[] molecheck;
+    private String[] scores;
 
 
     private List<Observer<WhackAMoleBoard>> observers ;
@@ -82,5 +83,13 @@ public class WhackAMoleBoard {
 
     public int[] getMolecheck(){
         return this.molecheck;
+    }
+
+    public void score(String[] scores){
+        this.scores = scores;
+    }
+
+    public String[] getScores(){
+        return this.scores;
     }
 }

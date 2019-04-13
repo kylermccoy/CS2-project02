@@ -108,6 +108,9 @@ public class WhackAMoleNetworkClient {
                         this.board.gameTied();
                         this.stop();
                         break;
+                    case WAMProtocol.SCORE:
+                        this.board.score(tokens);
+                        break;
                 }
             }
             catch (NoSuchElementException e){

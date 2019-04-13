@@ -27,6 +27,8 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
     private WhackAMoleBoard.Status status;
     private int row;
     private int col;
+    private int num_players;
+    private String scores;
 
     @Override
     public void init(){
@@ -70,8 +72,8 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
             }
         }
         gridPane.setGridLinesVisible(true) ;
-        int num_players = this.client.getTotal_players() ;
-        String scores = "" ;
+        num_players = this.client.getTotal_players() ;
+        scores = "" ;
         for(int i = 0; i < num_players; i++) {
             scores = scores + "P" + i + ":0 ";
         }
@@ -106,6 +108,7 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
     private void refresh(){
         status = board.getStatus();
         int[] moleCheck = this.board.getMolecheck();
+        String[] refreshScores = this.board.getScores();
 
         for(int numMoles = 0; numMoles < (row*col); numMoles++){
             if(moleCheck[numMoles] == 1){
@@ -116,6 +119,24 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
             }
         }
 
+        int index = 1;
+        for(int i = 0; i < num_players; i++) {
+            scores = scores + "P" + i + " " + refreshScores[index] + " ";
+            index++;
+        }
+        player_scores.setText(scores);
+
+        switch(status){
+            case TIE:
+                this.player_status.setText("The Game has Tied!");
+                break;
+            case I_LOST:
+                this.player_status.setText("You Lost the Game!");
+                break;
+            case I_WON:
+                this.player_status.setText("You Won the Game!");
+                break;
+        }
 
     }
 
