@@ -24,6 +24,9 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
     private Label player_scores ;
     private ArrayList<Button> buttons ;
     private Label player_status ;
+    private WhackAMoleBoard.Status status;
+    private int row;
+    private int col;
 
     @Override
     public void init(){
@@ -49,8 +52,8 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
     public void start(Stage stage) {
         buttons = new ArrayList<>() ;
         GridPane gridPane = new GridPane() ;
-        int col = this.board.getColumns() ;
-        int row = this.board.getRows() ;
+        col = this.board.getColumns() ;
+        row = this.board.getRows() ;
         int id = 0 ;
         for(int row_loop = 0; row_loop < row; row_loop++){
             for(int col_loop = 0; col_loop < col; col_loop++){
@@ -101,6 +104,18 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
     }
 
     private void refresh(){
+        status = board.getStatus();
+        int[] moleCheck = this.board.getMolecheck();
+
+        for(int numMoles = 0; numMoles < (row*col); numMoles++){
+            if(moleCheck[numMoles] == 1){
+                buttons.get(numMoles).setGraphic(new ImageView(new Image(getClass().getResourceAsStream("mole.png"))));
+            }
+            else if(moleCheck[numMoles] == 0){
+                buttons.get(numMoles).setGraphic(new ImageView(new Image(getClass().getResourceAsStream("empty.png"))));
+            }
+        }
+
 
     }
 

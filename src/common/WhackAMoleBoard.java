@@ -1,10 +1,8 @@
 package common;
 
 import client.gui.Observer;
-import client.gui.WAMGUI;
 import javafx.scene.control.Button;
 
-import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -14,7 +12,7 @@ public class WhackAMoleBoard {
     private int rows;
     private int cols;
     private Status status;
-    private ArrayList<Button> buttons;
+    private int[] molecheck;
 
 
     private List<Observer<WhackAMoleBoard>> observers ;
@@ -27,7 +25,7 @@ public class WhackAMoleBoard {
         this.observers = new LinkedList<>() ;
         this.rows = rows ;
         this.cols = columns ;
-
+        this.molecheck = new int[rows*columns];
     }
 
     public int getColumns(){
@@ -75,15 +73,14 @@ public class WhackAMoleBoard {
     }
 
     public void moleUp(int mole_number){
-
+        this.molecheck[mole_number] = 1;
     }
 
     public void moleDown(int mole_number){
-
+        this.molecheck[mole_number] = 0;
     }
 
-    public void whack(int mole_number, int player_number){
-
+    public int[] getMolecheck(){
+        return this.molecheck;
     }
-
 }

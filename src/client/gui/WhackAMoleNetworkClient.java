@@ -59,12 +59,12 @@ public class WhackAMoleNetworkClient {
         return this.go ;
     }
 
-    public void stop(){
-        this.go = false ;
+    public void startListener(){
+        new Thread(() ->this.run()).start();
     }
 
-    public void startListener(){
-        new Thread(()->this.run()).start();
+    public void stop(){
+        this.go = false ;
     }
 
     public void close(){
@@ -92,9 +92,6 @@ public class WhackAMoleNetworkClient {
                         break ;
                     case WAMProtocol.MOLE_DOWN:
                         this.board.moleDown(Integer.parseInt(tokens[1])) ;
-                        break ;
-                    case WAMProtocol.WHACK:
-                        this.board.whack(Integer.parseInt(tokens[1]),Integer.parseInt(tokens[2])) ;
                         break ;
                     case WAMProtocol.ERROR:
                         close();
