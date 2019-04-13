@@ -82,6 +82,7 @@ public class WhackAMoleNetworkClient {
                         break ;
                     case WAMProtocol.WHACK:
                         this.board.whack(Integer.parseInt(tokens[1]),Integer.parseInt(tokens[2])) ;
+                        break;
                 }
             }
             catch (NoSuchElementException e){
@@ -90,4 +91,6 @@ public class WhackAMoleNetworkClient {
             }
         }
     }
+
+
 }
