@@ -34,23 +34,18 @@ public class Moles extends Thread {
                 uptime = rand.nextInt(2) + 3;
                 this.isUp = true;
                 this.game.moleUp(number);
-                while (uptime > 0) {
-                    try {
-                        sleep(1000);
-                    } catch (InterruptedException e) {
-                        System.out.println("Sleeping Error!");
-                    }
-                    uptime--;
+                try {
+                    sleep(uptime * 1000);
+                } catch (InterruptedException e) {
+                    System.out.println("Sleeping Error!");
                 }
                 downtime = rand.nextInt(8) + 2;
                 this.isUp = false;
                 this.game.moleDown(number);
-                while (downtime > 0) {
-                    try {
-                        sleep(1000);
-                    } catch (InterruptedException e) {
-                        System.out.println("Sleeping Error!");
-                    }
+                try {
+                    sleep(downtime * 1000);
+                } catch (InterruptedException e) {
+                    System.out.println("Sleeping Error!");
                 }
             }
         }
