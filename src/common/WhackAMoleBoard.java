@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -89,6 +90,8 @@ public class WhackAMoleBoard {
 
     public void score(String[] scores){
         this.scores = scores;
+        System.out.println(Arrays.toString(scores) + "THIS IS MIGHTY BAD");
+        System.out.println(scores[0]);
     }
 
     public String[] getScores(){

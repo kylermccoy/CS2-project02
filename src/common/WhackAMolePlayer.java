@@ -80,6 +80,7 @@ public class WhackAMolePlayer extends Thread implements Closeable {
     public void moleDown(int mole_num){
         printStream.println(MOLE_DOWN + " " + mole_num) ;
         printStream.println(SCORE + " " + game.getScore());
+        System.out.println(game.getScore());
     }
 
 

@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -36,6 +37,7 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
     private int col;
     private int num_players;
     private String scores;
+    private String[] refreshScores;
 
     /**
      * Creates a new network client, and game board for the game. Also adds an observer
@@ -138,31 +140,34 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
             }
         }
 
-        int y = 0;
-        int index = 0;
-        for(int i = 0; i < num_players; i++) {
-            try {
-                index++;
-                scores = scores + "P" + i + " " + refreshScores[index] + " ";
-            }catch (NullPointerException e){
-                System.out.println("WHY GOD!");
+        if(refreshScores != null){
+            int index = 0;
+            scores = "";
+            for (int i = 0; i < num_players; i++) {
+                try {
+                    scores = scores + "P" + i + " " + refreshScores[index] + " ";
+                    index++;
+
+                } catch (NullPointerException e) {
+                    System.out.println("WHY GOD!");
+                }
             }
+            player_scores.setText(scores);
         }
-        player_scores.setText(scores);
+            System.out.println(status);
+            switch (status) {
 
-        switch(status){
+                case TIE:
+                    this.player_status.setText("The Game has Tied!");
+                    break;
+                case I_LOST:
+                    this.player_status.setText("You Lost the Game!");
+                    break;
+                case I_WON:
+                    this.player_status.setText("You Won the Game!");
+                    break;
 
-            case TIE:
-                this.player_status.setText("The Game has Tied!");
-                break;
-            case I_LOST:
-                this.player_status.setText("You Lost the Game!");
-                break;
-            case I_WON:
-                this.player_status.setText("You Won the Game!");
-                break;
         }
-
     }
 
     /**

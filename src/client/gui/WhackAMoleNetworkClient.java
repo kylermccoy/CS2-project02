@@ -6,6 +6,7 @@ import common.WhackAMoleBoard;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -122,14 +123,21 @@ public class WhackAMoleNetworkClient {
     private void run(){
         while(this.goodToGo()){
             try{
+                String request = this.scanner.next();
                 String response = scanner.nextLine() ;
-                String[] tokens = response.split(" ") ;
-                switch(tokens[0]){
+                String[] tokens = response.trim().split(" ") ;
+                System.out.println(Arrays.toString(tokens)+ "MEMES");
+                switch(request){
                     case WAMProtocol.MOLE_UP:
-                        this.board.moleUp(Integer.parseInt(tokens[1])) ;
+                        this.board.moleUp(Integer.parseInt(tokens[0])) ;
                         break ;
                     case WAMProtocol.MOLE_DOWN:
-                        this.board.moleDown(Integer.parseInt(tokens[1])) ;
+                        this.board.moleDown(Integer.parseInt(tokens[0])) ;
+                        String scores = this.scanner.next();
+                        if(scores.equals(WAMProtocol.SCORE)){
+                            String[] meme = scanner.nextLine().trim().split(" ");
+                            this.board.score(meme);
+                        }
                         break ;
                     case WAMProtocol.ERROR:
                         close();
@@ -147,6 +155,7 @@ public class WhackAMoleNetworkClient {
                         this.stop();
                         break;
                     case WAMProtocol.SCORE:
+                        System.out.println("FUCK UP");
                         this.board.score(tokens);
                         break;
                 }
