@@ -66,14 +66,9 @@ public class WAMServer implements Runnable {
             System.out.println("Game starting!");
             Thread thread = new Thread(game) ;
             thread.run();
-            thread.join();
-            server.close();
         }
         catch(IOException e){
             System.out.println("Something has gone horribly wrong!") ;
-            e.printStackTrace();
-        }
-        catch (InterruptedException e){
             e.printStackTrace();
         }
     }

@@ -10,6 +10,7 @@ public class WhackAMoleGame implements Runnable {
     private WhackAMole game ;
     private GameTimer timer ;
     private boolean active ;
+    private boolean closePlayers ;
 
     public WhackAMoleGame(int row, int column, int game_time) {
         players = new ArrayList<>();
@@ -19,6 +20,7 @@ public class WhackAMoleGame implements Runnable {
         game = new WhackAMole(row, column, this) ;
         timer = new GameTimer(game_time) ;
         active = false ;
+        closePlayers = false ;
     }
 
     public void addPlayer(WhackAMolePlayer player){
@@ -55,6 +57,10 @@ public class WhackAMoleGame implements Runnable {
         return score ;
     }
 
+    public boolean closePlayers(){
+        return closePlayers;
+    }
+
     public void run(){
         active = true ;
         timer.start();
@@ -68,9 +74,38 @@ public class WhackAMoleGame implements Runnable {
         }
         active = false ;
         System.out.println("Ending game!");
-        System.out.println("Closing player sockets!");
+        System.out.println("Sending game messages!");
+        int tied_check = 1 ;
+        int best_score = players.get(0).getScore() ;
         for(WhackAMolePlayer player: players){
-            player.close();
+            if(best_score < player.getScore()){
+                best_score = player.getScore() ;
+                tied_check = 1 ;
+            }
+            if(best_score == player.getScore()){
+                tied_check++ ;
+            }
         }
+        if(tied_check > 1){
+            for(WhackAMolePlayer play: players){
+                if(play.getScore() == best_score){
+                    play.gameTied();
+                }else{
+                    play.gameLost();
+                }
+            }
+        }else{
+            for(WhackAMolePlayer pl: players){
+                if(pl.getScore()==best_score){
+                    pl.gameWon();
+                }else{
+                    pl.gameLost();
+                }
+            }
+        }
+        System.out.println("Closing player sockets!");
+        closePlayers = true ;
+        System.out.println("Closing Server!");
+        System.exit(0);
     }
 }

@@ -21,7 +21,7 @@ public class WhackAMolePlayer extends Thread implements Closeable {
     private WhackAMoleGame game ;
 
     public void run(){
-        while(game.isActive()) {
+        while(!game.closePlayers()) {
             try {
                 String response = scanner.nextLine();
                 String[] tokens = response.split(" ");
@@ -29,7 +29,6 @@ public class WhackAMolePlayer extends Thread implements Closeable {
                     case WAMProtocol.WHACK:
                         if (game.isValid(Integer.parseInt(tokens[1]))) {
                             addPoints();
-                            ;
                         } else {
                             subPoints();
                         }
@@ -39,11 +38,9 @@ public class WhackAMolePlayer extends Thread implements Closeable {
                 }
             }
             catch (NoSuchElementException e){
-                System.out.println("Sockets have been closed!");
-                System.exit(1);
+                this.close();
             }
         }
-        close();
     }
 
     public WhackAMolePlayer(Socket socket, int player_num, WhackAMoleGame game) {
