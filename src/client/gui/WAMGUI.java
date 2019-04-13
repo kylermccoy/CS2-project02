@@ -11,7 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -24,6 +23,7 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
     private WhackAMoleNetworkClient client ;
     private Label player_scores ;
     private ArrayList<Button> buttons ;
+    private Label player_status ;
 
     @Override
     public void init(){
@@ -36,8 +36,13 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
             this.board = this.client.getBoard() ;
             this.board.addObserver(this) ;
         }
+        catch (NullPointerException e){
+            System.out.println("Error in connecting to server!");
+            System.exit(1);
+        }
         catch (NumberFormatException e){
             System.out.println("Server unavailable!");
+            System.exit(1);
         }
     }
 
@@ -62,7 +67,6 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
             }
         }
         gridPane.setGridLinesVisible(true) ;
-        gridPane.setPrefSize(600, 600);
         int num_players = this.client.getTotal_players() ;
         String scores = "" ;
         for(int i = 0; i < num_players; i++) {
@@ -76,6 +80,8 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
         BorderPane borderPane = new BorderPane() ;
         borderPane.setTop(scoring) ;
         borderPane.setCenter(gridPane) ;
+        player_status = new Label() ;
+        borderPane.setBottom(player_status);
         borderPane.setAlignment(scoring, Pos.TOP_CENTER);
         Scene scene = new Scene(borderPane) ;
         stage.setScene(scene) ;

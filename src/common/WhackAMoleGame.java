@@ -27,6 +27,7 @@ public class WhackAMoleGame implements Runnable {
     @Override
     public void run(){
         active = true ;
+        game.startGame();
         try{
             sleep(game_time * 1000) ;
         }

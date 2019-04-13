@@ -19,4 +19,10 @@ public class WhackAMole {
             moles.add(mole) ;
         }
     }
+
+    public void startGame(){
+        for(Moles mole: moles){
+            mole.start();
+        }
+    }
 }
