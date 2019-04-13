@@ -17,7 +17,7 @@ public class WhackAMoleGame implements Runnable {
         this.row = row ;
         this.column = column ;
         this.game_time = game_time ;
-        game = new WhackAMole(row, column) ;
+        game = new WhackAMole(row, column, this) ;
     }
 
     public boolean isActive(){
