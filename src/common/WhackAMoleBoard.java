@@ -35,6 +35,9 @@ public class WhackAMoleBoard {
             obs.update(this) ;
         }
     }
+    public void gameWon(){
+
+    }
 
     public void close(){
         alertObservers();

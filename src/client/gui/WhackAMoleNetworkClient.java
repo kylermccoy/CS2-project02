@@ -74,6 +74,7 @@ public class WhackAMoleNetworkClient {
         catch (IOException e){
             System.out.println("Failed to close client network!");
         }
+        this.board.close();
     }
 
     public void sendWhack(int id){
@@ -95,6 +96,21 @@ public class WhackAMoleNetworkClient {
                     case WAMProtocol.WHACK:
                         this.board.whack(Integer.parseInt(tokens[1]),Integer.parseInt(tokens[2])) ;
                         break ;
+                    case WAMProtocol.ERROR:
+                        close();
+                        break;
+                    case WAMProtocol.GAME_LOST:
+                        this.board.gameLost();
+                        this.stop();
+                        break;
+                    case WAMProtocol.GAME_WON:
+                        this.board.gameWon();
+                        this.stop();
+                        break;
+                    case WAMProtocol.GAME_TIED:
+                        this.board.gameTied();
+                        this.stop();
+                        break;
                 }
             }
             catch (NoSuchElementException e){
