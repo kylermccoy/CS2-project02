@@ -29,6 +29,7 @@ public class Moles extends Thread {
         Random rand = new Random() ;
         while(game.isActive()) {
             uptime = rand.nextInt(2) + 3 ;
+            this.game.moleUp(number) ;
             while(uptime > 0){
                 this.isUp = true ;
                 try{
@@ -40,6 +41,7 @@ public class Moles extends Thread {
                 uptime-- ;
             }
             downtime = rand.nextInt(8) + 2 ;
+            this.game.moleDown(number) ;
             while(downtime > 0){
                 this.isUp = false ;
                 try{

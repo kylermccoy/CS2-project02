@@ -2,12 +2,15 @@ package common;
 
 import java.util.ArrayList;
 
+import static java.lang.Thread.sleep;
+
 public class WhackAMole {
 
     private int rows ;
     private int columns ;
     private ArrayList<Moles> moles ;
     private WhackAMoleGame game ;
+    private boolean active ;
 
     public WhackAMole(int rows, int columns, WhackAMoleGame game) {
         this.rows = rows ;
@@ -20,7 +23,27 @@ public class WhackAMole {
         }
     }
 
-    public void startGame(){
+    public boolean isValid(int mole_num){
+        return moles.get(mole_num).isUp() ;
+    }
+
+    public boolean isActive(){
+        return active ;
+    }
+
+    public void startTimer(int game_time){
+        try{
+            active = true ;
+            sleep(game_time * 1000) ;
+            active = false ;
+        }
+        catch(InterruptedException ex){
+            System.out.println("Interrupted Exception!");
+        }
+    }
+
+    public void startGame(int game_time){
+        startTimer(game_time);
         for(Moles mole: moles){
             mole.start();
         }
