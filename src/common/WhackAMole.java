@@ -10,7 +10,7 @@ public class WhackAMole {
     private int columns ;
     private ArrayList<Moles> moles ;
     private WhackAMoleGame game ;
-    private boolean active ;
+    private GameTimer timer ;
 
     public WhackAMole(int rows, int columns, WhackAMoleGame game) {
         this.rows = rows ;
@@ -28,23 +28,15 @@ public class WhackAMole {
     }
 
     public boolean isActive(){
-        return active ;
+        return timer.isActive() ;
     }
 
     public void startGame(int game_time){
-        try{
-            active = true ;
-            System.out.println("Starting mole threads!");
-            for(Moles mole: moles){
-                mole.start();
-            }
-            System.out.println("Starting timer!");
-            sleep(game_time * 1000) ;
-            active = false ;
-            System.out.println("Timer finished!");
-        }
-        catch(InterruptedException ex){
-            System.out.println("Interrupted Exception!");
+        timer = new GameTimer(game_time) ;
+        timer.start() ;
+        System.out.println("Starting mole threads!");
+        for(Moles mole: moles){
+            mole.start();
         }
     }
 }
