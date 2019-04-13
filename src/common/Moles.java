@@ -30,11 +30,11 @@ public class Moles extends Thread {
         Random rand = new Random() ;
         while(game.isActive()) {
             rando = rand.nextInt(2);
-            if(rando==1) {
+            if (rando == 1) {
                 uptime = rand.nextInt(2) + 3;
+                this.isUp = true;
                 this.game.moleUp(number);
                 while (uptime > 0) {
-                    this.isUp = true;
                     try {
                         sleep(1000);
                     } catch (InterruptedException e) {
@@ -42,11 +42,10 @@ public class Moles extends Thread {
                     }
                     uptime--;
                 }
-            }else {
                 downtime = rand.nextInt(8) + 2;
+                this.isUp = false;
                 this.game.moleDown(number);
                 while (downtime > 0) {
-                    this.isUp = false;
                     try {
                         sleep(1000);
                     } catch (InterruptedException e) {

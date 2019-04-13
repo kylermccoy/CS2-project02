@@ -2,15 +2,12 @@ package common;
 
 import java.util.ArrayList;
 
-import static java.lang.Thread.sleep;
-
 public class WhackAMole {
 
     private int rows ;
     private int columns ;
     private ArrayList<Moles> moles ;
     private WhackAMoleGame game ;
-    private GameTimer timer ;
 
     public WhackAMole(int rows, int columns, WhackAMoleGame game) {
         this.rows = rows ;
@@ -21,21 +18,14 @@ public class WhackAMole {
             Moles mole = new Moles(id, game) ;
             moles.add(mole) ;
         }
-        timer = new GameTimer(game.getTime()) ;
     }
 
     public boolean isValid(int mole_num){
         return moles.get(mole_num).isUp() ;
     }
 
-    public boolean isActive(){
-        return timer.isActive() ;
-    }
-
     public void startGame(){
-        timer.start() ;
-        System.out.println("Starting mole threads!");
-        for(Moles mole: moles){
+        for (Moles mole : moles) {
             mole.start();
         }
     }

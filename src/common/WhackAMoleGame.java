@@ -8,6 +8,8 @@ public class WhackAMoleGame implements Runnable {
     private int column;
     private int game_time;
     private WhackAMole game ;
+    private GameTimer timer ;
+    private boolean active ;
 
     public WhackAMoleGame(int row, int column, int game_time) {
         players = new ArrayList<>();
@@ -15,6 +17,8 @@ public class WhackAMoleGame implements Runnable {
         this.column = column;
         this.game_time = game_time;
         game = new WhackAMole(row, column, this) ;
+        timer = new GameTimer(game_time) ;
+        active = false ;
     }
 
     public void addPlayer(WhackAMolePlayer player){
@@ -26,7 +30,7 @@ public class WhackAMoleGame implements Runnable {
     }
 
     public boolean isActive(){
-        return game.isActive() ;
+        return active ;
     }
 
     public void moleUp(int mole_num){
@@ -43,10 +47,6 @@ public class WhackAMoleGame implements Runnable {
         }
     }
 
-    public int getTime(){
-        return game_time ;
-    }
-
     public String getScore(){
         String score = "" ;
         for(WhackAMolePlayer player: players){
@@ -56,8 +56,21 @@ public class WhackAMoleGame implements Runnable {
     }
 
     public void run(){
-        System.out.println("Game starting!");
-        game.startGame() ;
-        System.out.println("Game ending!");
+        active = true ;
+        timer.start();
+        System.out.println("Starting mole threads!");
+        game.startGame();
+        try {
+            timer.join();
+        }
+        catch (InterruptedException e){
+            System.out.println("Interrupted!");
+        }
+        active = false ;
+        System.out.println("Ending game!");
+        System.out.println("Closing player sockets!");
+        for(WhackAMolePlayer player: players){
+            player.close();
+        }
     }
 }

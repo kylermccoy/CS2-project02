@@ -4,6 +4,7 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import static common.WAMProtocol.*;
@@ -21,19 +22,25 @@ public class WhackAMolePlayer extends Thread implements Closeable {
 
     public void run(){
         while(game.isActive()) {
-            String response = scanner.nextLine();
-            String[] tokens = response.split(" ");
-            switch (tokens[0]) {
-                case WAMProtocol.WHACK:
-                    if (game.isValid(Integer.parseInt(tokens[1]))) {
-                        addPoints();
-                        ;
-                    } else {
-                        subPoints();
-                    }
-                    printStream.println(MOLE_DOWN + " " + tokens[1]);
-                    printStream.println(SCORE + " " + game.getScore());
-                    break;
+            try {
+                String response = scanner.nextLine();
+                String[] tokens = response.split(" ");
+                switch (tokens[0]) {
+                    case WAMProtocol.WHACK:
+                        if (game.isValid(Integer.parseInt(tokens[1]))) {
+                            addPoints();
+                            ;
+                        } else {
+                            subPoints();
+                        }
+                        printStream.println(MOLE_DOWN + " " + tokens[1]);
+                        printStream.println(SCORE + " " + game.getScore());
+                        break;
+                }
+            }
+            catch (NoSuchElementException e){
+                System.out.println("Sockets have been closed!");
+                System.exit(1);
             }
         }
         close();
@@ -102,8 +109,7 @@ public class WhackAMolePlayer extends Thread implements Closeable {
     @Override
     public void close() {
         try{
-            socket.shutdownInput();
-            socket.shutdownOutput();
+            socket.close();
         }
         catch(IOException e){
             System.out.println("Failed close!");
