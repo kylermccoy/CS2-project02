@@ -5,7 +5,7 @@ import java.util.Random;
 public class Moles extends Thread {
 
     private int number ;
-    public boolean isUp ;
+    private boolean isUp ;
 
     private WhackAMoleGame game ;
 
@@ -13,6 +13,10 @@ public class Moles extends Thread {
         this.number = number ;
         this.game = game ;
         this.isUp = false ;
+    }
+
+    public boolean isUp(){
+        return isUp ;
     }
 
     public int getNumber(){

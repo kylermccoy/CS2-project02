@@ -59,6 +59,7 @@ public class WAMServer implements Runnable {
                 players.add(player) ;
             }
             WhackAMoleGame game = new WhackAMoleGame(players, rows, columns, game_time_seconds) ;
+            System.out.println("Game Starting!");
             new Thread(game).run() ;
         }
         catch(IOException e){
