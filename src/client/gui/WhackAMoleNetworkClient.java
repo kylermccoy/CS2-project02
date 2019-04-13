@@ -21,7 +21,7 @@ public class WhackAMoleNetworkClient {
     private int columns ;
     private int rows ;
     private int total_players ;
-    private int game_time_seconds ;
+    private int player_num ;
 
     public WhackAMoleNetworkClient(String host, int port){
         try{
@@ -33,10 +33,10 @@ public class WhackAMoleNetworkClient {
                 System.out.println("ERROR IN SERVER RESPONSE!");
             }else{
                 String[] tokens = welcome_response.split(" ") ;
-                rows = Integer.parseInt(tokens[2]) ;
-                columns = Integer.parseInt(tokens[3]) ;
-                total_players = Integer.parseInt(tokens[4]) ;
-                game_time_seconds = Integer.parseInt(tokens[5]) ;
+                rows = Integer.parseInt(tokens[1]) ;
+                columns = Integer.parseInt(tokens[2]) ;
+                total_players = Integer.parseInt(tokens[3]) ;
+                player_num = Integer.parseInt(tokens[4]) ;
             }
             this.board = new WhackAMoleBoard(rows, columns) ;
             System.out.println("Connected to server!");
@@ -45,6 +45,14 @@ public class WhackAMoleNetworkClient {
         catch (IOException e){
             System.out.println("Cannot connect to server!");
         }
+    }
+
+    public WhackAMoleBoard getBoard(){
+        return this.board ;
+    }
+
+    public int getTotal_players(){
+        return total_players ;
     }
 
     public boolean goodToGo(){
@@ -68,6 +76,10 @@ public class WhackAMoleNetworkClient {
         }
     }
 
+    public void sendWhack(int id){
+        this.printStream.println(WAMProtocol.WHACK + " " + id + " " + this.player_num);
+    }
+
     public void run(){
         while(this.goodToGo()){
             try{
@@ -82,6 +94,7 @@ public class WhackAMoleNetworkClient {
                         break ;
                     case WAMProtocol.WHACK:
                         this.board.whack(Integer.parseInt(tokens[1]),Integer.parseInt(tokens[2])) ;
+                        break ;
                 }
             }
             catch (NoSuchElementException e){

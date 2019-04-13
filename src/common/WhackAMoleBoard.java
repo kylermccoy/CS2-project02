@@ -9,12 +9,21 @@ public class WhackAMoleBoard {
     private int rows;
     private int cols;
 
+
     private List<Observer<WhackAMoleBoard>> observers ;
 
     public WhackAMoleBoard(int rows, int columns){
         this.observers = new LinkedList<>() ;
         this.rows = rows ;
         this.cols = columns ;
+    }
+
+    public int getColumns(){
+        return cols ;
+    }
+
+    public int getRows(){
+        return rows ;
     }
 
     public void addObserver(Observer<WhackAMoleBoard> observer){
@@ -29,11 +38,6 @@ public class WhackAMoleBoard {
 
     public void close(){
         alertObservers();
-    }
-
-    public void setRandC(int rows, int cols){
-        this.rows = rows ;
-        this.cols = cols ;
     }
 
     public void moleUp(int mole_number){
