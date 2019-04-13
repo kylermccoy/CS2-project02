@@ -138,11 +138,15 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
             }
         }
 
-        int x = 0;
+        int y = 0;
         int index = 0;
         for(int i = 0; i < num_players; i++) {
-            index++;
-            scores = scores + "P" + i + " " + refreshScores[index] + " ";
+            try {
+                index++;
+                scores = scores + "P" + i + " " + refreshScores[index] + " ";
+            }catch (NullPointerException e){
+                System.out.println("WHY GOD!");
+            }
         }
         player_scores.setText(scores);
 

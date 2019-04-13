@@ -75,10 +75,12 @@ public class WhackAMoleBoard {
 
     public void moleUp(int mole_number){
         this.molecheck[mole_number] = 1;
+        alertObservers();
     }
 
     public void moleDown(int mole_number){
         this.molecheck[mole_number] = 0;
+        alertObservers();
     }
 
     public int[] getMolecheck(){
