@@ -50,17 +50,19 @@ public class WAMServer implements Runnable {
             players = new ArrayList() ;
             int i = 1 ;
             int num_player = num_players ;
+            System.out.println("Game created!");
+            WhackAMoleGame game = new WhackAMoleGame(rows, columns, game_time_seconds) ;
             while(num_player > 0){
                 Socket playerSocket = server.accept() ;
-                WhackAMolePlayer player = new WhackAMolePlayer(playerSocket, i) ;
+                WhackAMolePlayer player = new WhackAMolePlayer(playerSocket, i, game) ;
                 player.connect(rows, columns, num_players, i) ;
                 System.out.println("Player #" + i + " connected.") ;
                 i++ ;
                 num_player-- ;
                 players.add(player) ;
+                player.start() ;
+                game.addPlayer(player) ;
             }
-            WhackAMoleGame game = new WhackAMoleGame(players, rows, columns, game_time_seconds) ;
-            System.out.println("Game Starting!");
             new Thread(game).run() ;
         }
         catch(IOException e){

@@ -4,12 +4,11 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import static common.WAMProtocol.*;
 
-public class WhackAMolePlayer implements Closeable {
+public class WhackAMolePlayer extends Thread implements Closeable {
     private Socket socket ;
 
     private Scanner scanner ;
@@ -18,9 +17,31 @@ public class WhackAMolePlayer implements Closeable {
 
     private int player_number ;
     private int score ;
+    private WhackAMoleGame game ;
 
-    public WhackAMolePlayer(Socket socket, int player_num) {
+    public void run(){
+        while(game.isActive()) {
+            String response = scanner.nextLine();
+            String[] tokens = response.split(" ");
+            switch (tokens[0]) {
+                case WAMProtocol.WHACK:
+                    if (game.isValid(Integer.parseInt(tokens[1]))) {
+                        addPoints();
+                        ;
+                    } else {
+                        subPoints();
+                    }
+                    printStream.println(MOLE_DOWN + " " + tokens[1]);
+                    printStream.println(SCORE + " " + game.getScore());
+                    break;
+            }
+        }
+        close();
+    }
+
+    public WhackAMolePlayer(Socket socket, int player_num, WhackAMoleGame game) {
         score = 0 ;
+        this.game = game ;
         this.socket = socket ;
         this.player_number = player_num ;
         try {
@@ -48,10 +69,6 @@ public class WhackAMolePlayer implements Closeable {
         printStream.println(WELCOME + " " + row + " " + column + " " + num_players + " " + player_num);
     }
 
-    public String getResponse(){
-        return scanner.nextLine() ;
-    }
-
     public void moleUp(int mole_num){
         printStream.println(MOLE_UP + " " + mole_num) ;
     }
@@ -64,13 +81,6 @@ public class WhackAMolePlayer implements Closeable {
         printStream.println(WHACK + " " + mole_num + " " + this.player_number) ;
     }
 
-    public void score(ArrayList<Integer> player_scores){
-        String scores = "" ;
-        for(int score: player_scores){
-            scores = scores + " " + score;
-        }
-        printStream.println(SCORE + scores) ;
-    }
 
     public void gameWon(){
         printStream.println(GAME_WON) ;
@@ -92,7 +102,8 @@ public class WhackAMolePlayer implements Closeable {
     @Override
     public void close() {
         try{
-            socket.close();
+            socket.shutdownInput();
+            socket.shutdownOutput();
         }
         catch(IOException e){
             System.out.println("Failed close!");
