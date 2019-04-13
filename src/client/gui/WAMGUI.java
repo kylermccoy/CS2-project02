@@ -37,7 +37,6 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
     private int col;
     private int num_players;
     private String scores;
-    private String[] refreshScores;
 
     /**
      * Creates a new network client, and game board for the game. Also adds an observer
@@ -93,7 +92,7 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
         num_players = this.client.getTotal_players() ;
         scores = "" ;
         for(int i = 0; i < num_players; i++) {
-            scores = scores + "P" + i + ":0 ";
+            scores = scores + "P" + i + ": 0  ";
         }
         player_scores = new Label(scores) ;
         player_scores.setStyle("-fx-font: " + 18 + " arial;") ;
@@ -145,7 +144,7 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
             scores = "";
             for (int i = 0; i < num_players; i++) {
                 try {
-                    scores = scores + "P" + i + " " + refreshScores[index] + " ";
+                    scores = scores + "P" + i + ": " + refreshScores[index] + "  ";
                     index++;
 
                 } catch (NullPointerException e) {
@@ -158,7 +157,6 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
             System.out.println(status);
         if(status != null) {
             switch (status) {
-
                 case TIE:
                     this.player_status.setText("The Game has Tied!");
                     break;

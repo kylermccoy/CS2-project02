@@ -90,7 +90,7 @@ public class WhackAMoleBoard {
 
     public void score(String[] scores){
         this.scores = scores;
-        System.out.println(Arrays.toString(scores) + "THIS IS MIGHTY BAD");
+        System.out.println(Arrays.toString(scores));
         System.out.println(scores[0]);
     }
 
