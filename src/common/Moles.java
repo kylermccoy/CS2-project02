@@ -47,6 +47,12 @@ public class Moles extends Thread {
                 } catch (InterruptedException e) {
                     System.out.println("Sleeping Error!");
                 }
+            }else{
+                try {
+                    sleep(3 * 1000);
+                } catch (InterruptedException e) {
+                    System.out.println("Sleeping Error!");
+                }
             }
         }
     }
