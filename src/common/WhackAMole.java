@@ -21,6 +21,7 @@ public class WhackAMole {
             Moles mole = new Moles(id, game) ;
             moles.add(mole) ;
         }
+        timer = new GameTimer(game.getTime()) ;
     }
 
     public boolean isValid(int mole_num){
@@ -31,8 +32,7 @@ public class WhackAMole {
         return timer.isActive() ;
     }
 
-    public void startGame(int game_time){
-        timer = new GameTimer(game_time) ;
+    public void startGame(){
         timer.start() ;
         System.out.println("Starting mole threads!");
         for(Moles mole: moles){
