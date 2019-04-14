@@ -21,8 +21,8 @@ import java.util.List;
 /**
  * JavaFX GUI for the networked Whack a mole game
  *
- * @Author: Alex Cooley
  * @Author: Kyle McCoy
+ * @Author: Alex Cooley
  */
 
 public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{

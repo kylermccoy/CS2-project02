@@ -2,6 +2,10 @@ package common;
 
 import java.util.ArrayList;
 
+/**
+ * @Author: Kyle McCoy
+ * @Author: Alex Cooley
+ */
 public class WhackAMoleGame implements Runnable {
     private ArrayList<WhackAMolePlayer> players;
     private int row;
@@ -12,6 +16,12 @@ public class WhackAMoleGame implements Runnable {
     private boolean active ;
     private boolean closePlayers ;
 
+    /**
+     * Creates a new WhackAMoleGame
+     * @param row rows of the game board
+     * @param column columns of the game board
+     * @param game_time the time that the game is run for
+     */
     public WhackAMoleGame(int row, int column, int game_time) {
         players = new ArrayList<>();
         this.row = row;
@@ -23,22 +33,43 @@ public class WhackAMoleGame implements Runnable {
         closePlayers = false ;
     }
 
+    /**
+     * adds a player to the ArrayList of players
+     * @param player
+     */
     public void addPlayer(WhackAMolePlayer player){
         players.add(player) ;
     }
 
+    /**
+     * Returns whether the mole is up when it whacked
+     * @param mole_num the moles number
+     */
     public boolean isValid(int mole_num){
         return game.isValid(mole_num) ;
     }
 
+    /**
+     * Sets the given mole to the boolean of whether or not it was whacked
+     * @param mole_num the number of the mole
+     * @param bool whether the mole was whacked or not
+     */
     public void setWhacked(int mole_num, boolean bool){
         game.setWhacked(mole_num, bool);
     }
 
+    /**
+     * Returns whether the game is active or not
+     * @return
+     */
     public boolean isActive(){
         return active ;
     }
 
+    /**
+     * Puts the given mole up for each player
+     * @param mole_num the mole number
+     */
     public void moleUp(int mole_num){
         System.out.println("Mole Up at " + mole_num);
         for(WhackAMolePlayer player: players){
@@ -46,6 +77,10 @@ public class WhackAMoleGame implements Runnable {
         }
     }
 
+    /**
+     * Puts down the given mole for each player
+     * @param mole_num the mole number
+     */
     public void moleDown(int mole_num){
         System.out.println("Mole Down at " + mole_num);
         for(WhackAMolePlayer player: players){
@@ -53,6 +88,10 @@ public class WhackAMoleGame implements Runnable {
         }
     }
 
+    /**
+     * Returns a string of each players score with a space in between like: 1 0 3 5
+     * @return score
+     */
     public String getScore(){
         String score = "" ;
         for(WhackAMolePlayer player: players){
@@ -61,10 +100,16 @@ public class WhackAMoleGame implements Runnable {
         return score ;
     }
 
+    /**
+     * returns if the player thread should start closing the sockets
+     */
     public boolean closePlayers(){
         return closePlayers;
     }
 
+    /**
+     * The main run method. It starts the timer, starts the game, and checks the scores
+     */
     public void run(){
         active = true ;
         timer.start();

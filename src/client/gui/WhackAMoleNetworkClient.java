@@ -12,6 +12,8 @@ import java.util.Scanner;
 
 /**
  * The client side of the Whack a mole game. Each player gets its own connection to the server.
+ * @Author: Kyle McCoy
+ * @Author: Alex Cooley
  */
 
 public class WhackAMoleNetworkClient {

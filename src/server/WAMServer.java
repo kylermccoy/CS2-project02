@@ -9,6 +9,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+/**
+ * @Author Kyle McCoy
+ * @Author Alex Cooley
+ */
 public class WAMServer implements Runnable {
     private ServerSocket server ;
     private ArrayList<WhackAMolePlayer> players ;
@@ -17,6 +21,10 @@ public class WAMServer implements Runnable {
     private static int num_players ;
     private static int game_time_seconds ;
 
+    /**
+     * Creates the server
+     * @param port
+     */
     public WAMServer(int port) {
         try {
             server = new ServerSocket(port) ;
@@ -26,6 +34,10 @@ public class WAMServer implements Runnable {
         }
     }
 
+    /**
+     * Sets the given command line arguments to the variables and runs the server
+     * @param args
+     */
     public static void main(String[] args) {
         if(args.length != 5){
             System.out.println("Usage: java WAMServer <game-port> <rows> <columns> <players> <game-duration-seconds>");
@@ -43,6 +55,9 @@ public class WAMServer implements Runnable {
         server.run() ;
     }
 
+    /**
+     * Runs the server, it accepts all the player sockets, sends the correct data to each player and starts the game.
+     */
     @Override
     public void run() {
         try {
