@@ -97,6 +97,7 @@ public class WhackAMoleGame implements Runnable {
         for(WhackAMolePlayer player: players){
             score = score + player.getScore() + " " ;
         }
+        System.out.println(score);
         return score ;
     }
 
@@ -125,17 +126,23 @@ public class WhackAMoleGame implements Runnable {
         System.out.println("Ending game!");
         System.out.println("Sending game messages!");
         int tied_check = 0 ;
+        int player_index = 0;
+        int index = 0 ;
         int best_score = players.get(0).getScore() ;
         for(WhackAMolePlayer player: players){
-            if(best_score < player.getScore()){
-                best_score = player.getScore() ;
-                tied_check = 1 ;
-            }
             if(best_score == player.getScore()){
                 tied_check++ ;
             }
+            if(best_score < player.getScore()){
+                best_score = player.getScore() ;
+                tied_check = 1 ;
+                player_index = index ;
+            }
+            index++ ;
         }
+        System.out.println("Best Score[ P" + player_index + ": " + best_score + " ]");
         if(tied_check > 1){
+            System.out.println("Tied Game!");
             for(WhackAMolePlayer play: players){
                 if(play.getScore() == best_score){
                     play.gameTied();
@@ -144,6 +151,7 @@ public class WhackAMoleGame implements Runnable {
                 }
             }
         }else{
+            System.out.println("One Winner!");
             for(WhackAMolePlayer pl: players){
                 if(pl.getScore()==best_score){
                     pl.gameWon();

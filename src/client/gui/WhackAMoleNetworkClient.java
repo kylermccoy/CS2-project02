@@ -135,11 +135,6 @@ public class WhackAMoleNetworkClient {
                         break ;
                     case WAMProtocol.MOLE_DOWN:
                         this.board.moleDown(Integer.parseInt(tokens[0])) ;
-                        String scores = this.scanner.next();
-                        if(scores.equals(WAMProtocol.SCORE)){
-                            String[] meme = scanner.nextLine().trim().split(" ");
-                            this.board.score(meme);
-                        }
                         break ;
                     case WAMProtocol.ERROR:
                         close();

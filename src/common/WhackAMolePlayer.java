@@ -36,13 +36,14 @@ public class WhackAMolePlayer extends Thread implements Closeable {
                 String[] tokens = response.split(" ");
                 switch (tokens[0]) {
                     case WAMProtocol.WHACK:
+                        System.out.println("Mole Whacked at " + tokens[1]);
                         if (game.isValid(Integer.parseInt(tokens[1]))) {
                             addPoints();
                             game.setWhacked(Integer.parseInt(tokens[1]),true);
                         } else {
                             subPoints();
                         }
-                        moleDown(Integer.parseInt(tokens[1]));
+                        game.moleDown(Integer.parseInt(tokens[1]));
                         break;
                 }
             }
@@ -120,7 +121,6 @@ public class WhackAMolePlayer extends Thread implements Closeable {
     public void moleDown(int mole_num){
         printStream.println(MOLE_DOWN + " " + mole_num) ;
         printStream.println(SCORE + " " + game.getScore());
-        System.out.println(game.getScore());
     }
 
 
