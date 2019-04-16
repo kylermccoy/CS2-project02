@@ -128,7 +128,6 @@ public class WhackAMoleNetworkClient {
                 String request = this.scanner.next();
                 String response = scanner.nextLine() ;
                 String[] tokens = response.trim().split(" ") ;
-                System.out.println(Arrays.toString(tokens)+ "MEMES");
                 switch(request){
                     case WAMProtocol.MOLE_UP:
                         this.board.moleUp(Integer.parseInt(tokens[0])) ;
@@ -152,12 +151,12 @@ public class WhackAMoleNetworkClient {
                         this.stop();
                         break;
                     case WAMProtocol.SCORE:
-                        System.out.println("FUCK UP");
                         this.board.score(tokens);
                         break;
                 }
             }
             catch (NoSuchElementException e){
+                System.out.println(e);
             }
         }
     }

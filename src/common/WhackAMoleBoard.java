@@ -148,8 +148,8 @@ public class WhackAMoleBoard {
      */
     public void score(String[] scores){
         this.scores = scores;
+        alertObservers();
         System.out.println(Arrays.toString(scores));
-        System.out.println(scores[0]);
     }
 
     /**

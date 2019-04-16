@@ -154,7 +154,6 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
             player_scores.setText(scores);
         }
 
-        System.out.println(status);
         if(status != null) {
             switch (status) {
                 case TIE:
