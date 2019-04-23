@@ -112,6 +112,7 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
         client.startListener();
     }
 
+
     /**
      * GUI is closing, so the network connection and the board is closed.
      */
@@ -148,7 +149,7 @@ public class WAMGUI extends Application implements Observer<WhackAMoleBoard>{
                     index++;
 
                 } catch (NullPointerException e) {
-                    System.out.println("WHY GOD!");
+                    System.out.println(e);
                 }
             }
             player_scores.setText(scores);

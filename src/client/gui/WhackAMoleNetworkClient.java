@@ -113,7 +113,7 @@ public class WhackAMoleNetworkClient {
 
     /**
      * Sends which player hit the mole
-     * @param id
+     * @param id the id of the mole
      */
     public void sendWhack(int id){
         this.printStream.println(WAMProtocol.WHACK + " " + id + " " + this.player_num);

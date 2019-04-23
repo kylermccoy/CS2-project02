@@ -1,8 +1,8 @@
 package common;
 
 /**
- * @Author: Kyle McCoy
- * @Author: Alex Cooley
+ * @Author Kyle McCoy
+ * @Author Alex Cooley
  */
 public class GameTimer extends Thread {
 
@@ -11,7 +11,7 @@ public class GameTimer extends Thread {
 
     /**
      * Sets the game time
-     * @param game_time
+     * @param game_time the amount of time the game will run for
      */
     public GameTimer(int game_time){
         this.game_time = game_time ;
